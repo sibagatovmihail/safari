@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230716215144">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230716221143">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -755,7 +755,12 @@
 				justify-content: center;
 				align-items: center;
 				background-color: var(--white);
-				/* transition: opacity 1s; */
+				transition: opacity 1s;
+				opacity: 0;
+			}
+
+			.loading .fls-preloader {
+				opacity: 1;
 			}
 
 			/* .loaded .fls-preloader {
@@ -851,15 +856,13 @@
 					}
 
 					function addLoadedClass() {
+						htmlDocument.classList.add('loaded');
 						htmlDocument.classList.remove('lock');
 						htmlDocument.classList.remove('loading');
 						setInterval(() => {
-							htmlDocument.classList.add('loaded');
-						}, 700);
-						setInterval(() => {
 							preloader.remove();
 							preloaderContainer.remove();
-						}, 500);
+						}, 0);
 					}
 				} else {
 					preloaderContainer.remove();
@@ -868,7 +871,7 @@
 			preloader();
 		</script>
 	</div>
-	<script src="js/app.min.js?_v=20230716215144"></script>
+	<script src="js/app.min.js?_v=20230716221143"></script>
 </body>
 
 </html>
