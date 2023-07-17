@@ -5113,7 +5113,7 @@
             }
         }), 0);
         const htmlElement = document.documentElement;
-        let touchStartX = 0, touchEndX = 0;
+        let touchStartX = 0, touchEndX = 0, touchStartY = 0, touchEndY = 0, distY = 0;
         document.addEventListener("click", (e => {
             const targetElement = e.target;
             openSearch(targetElement);
@@ -5122,13 +5122,17 @@
         }));
         document.addEventListener("touchstart", (e => {
             touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
         }));
         document.addEventListener("touchend", (e => {
             touchEndX = e.changedTouches[0].screenX;
+            distY = e.changedTouches[0].screenY - touchStartY;
             swiperDetection();
         }));
         function swiperDetection() {
-            if (touchStartX < touchEndX && touchStartX < 250) htmlElement.classList.add("account-sidebar-open"); else if (touchStartX > touchEndX) htmlElement.classList.remove("account-sidebar-open");
+            if (touchStartX < touchEndX && touchStartX < 250) {
+                if (distY <= 20 && distY >= -20) htmlElement.classList.add("account-sidebar-open");
+            } else if (touchStartX > touchEndX && touchEndY - touchStartY <= 20) htmlElement.classList.remove("account-sidebar-open");
         }
         function openSearch(element) {
             if (element.closest(".search-header")) htmlElement.classList.add("search-open"); else htmlElement.classList.remove("search-open");
